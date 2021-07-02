@@ -36,6 +36,7 @@ public class MeiligaoProtocol extends BaseProtocol {
             @Override
             protected void addProtocolHandlers(PipelineBuilder pipeline) {
                 pipeline.addLast(new MeiligaoFrameDecoder());
+                pipeline.addLast(new StringEncoder());
                 pipeline.addLast(new MeiligaoProtocolEncoder(MeiligaoProtocol.this));
                 pipeline.addLast(new MeiligaoProtocolDecoder(MeiligaoProtocol.this));
             }
@@ -43,6 +44,7 @@ public class MeiligaoProtocol extends BaseProtocol {
         addServer(new TrackerServer(true, getName()) {
             @Override
             protected void addProtocolHandlers(PipelineBuilder pipeline) {
+                pipeline.addLast(new StringEncoder());
                 pipeline.addLast(new MeiligaoProtocolEncoder(MeiligaoProtocol.this));
                 pipeline.addLast(new MeiligaoProtocolDecoder(MeiligaoProtocol.this));
             }
