@@ -452,7 +452,7 @@ public class MeiligaoProtocolDecoder extends BaseProtocolDecoder {
                 System.out.println("Command result : "+ true );
                 position.set(Position.KEY_RESULT, "true");
                 getLastLocation(position, null);
-                return position:
+                return position;
             }
 
             if (command == MSG_ALARM) {
