@@ -28,7 +28,6 @@ public class CommandResultEventHandler extends BaseEventHandler {
     @Override
     protected Map<Event, Position> analyzePosition(Position position) {
         Object commandResult = position.getAttributes().get(Position.KEY_RESULT);
-        System.out.println("Check command result: " + ( (String) commandResult) + ", Protocol: " + position.getProtocol());
         if (commandResult != null) {
             Event event = new Event(Event.TYPE_COMMAND_RESULT, position);
             event.set(Position.KEY_RESULT, (String) commandResult);
