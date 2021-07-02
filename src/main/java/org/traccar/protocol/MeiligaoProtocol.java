@@ -19,6 +19,7 @@ import org.traccar.BaseProtocol;
 import org.traccar.PipelineBuilder;
 import org.traccar.TrackerServer;
 import org.traccar.model.Command;
+import io.netty.handler.codec.string.StringEncoder;
 
 public class MeiligaoProtocol extends BaseProtocol {
 
