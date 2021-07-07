@@ -28,6 +28,16 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
     protected Object decode(
             ChannelHandlerContext ctx, Channel channel, ByteBuf buf) throws Exception {
 
+        String str;
+        if(buf.hasArray()) { // handle heap buffer
+            str = new String(buf.array(), buf.arrayOffset() + buf.readerIndex(), buf.readableBytes());
+        } else { // handle direct buffers and composite buffers
+            byte[] bytes = new byte[buf.readableBytes()];
+            buf.getBytes(buf.readerIndex(), bytes);
+            str = new String(bytes, 0, buf.readableBytes());
+        }
+        System.out.println("Frame: " + str);
+
         if(BufferUtil.indexOf("powercar ok!", buf) > -1){
             return buf;
         }
