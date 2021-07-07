@@ -28,6 +28,7 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
     protected Object decode(
             ChannelHandlerContext ctx, Channel channel, ByteBuf buf) throws Exception {
 
+        System.out.println("Frame: " + (buf.toString()));
         if (buf.readableBytes() < 80) {
             return null;
         }
