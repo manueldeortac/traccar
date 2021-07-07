@@ -107,8 +107,9 @@ public class XexunProtocolDecoder extends BaseProtocolDecoder {
 
         Parser parser = new Parser(pattern, (String) msg);
         if (!parser.matches()) {
-
+            System.out.println("No matches: " + ((String) msg));
             if(((String) msg).contains("powercar ok!")){
+                System.out.println("Command result");
                 deviceSession = getDeviceSession(channel, remoteAddress);
                 position.setDeviceId(deviceSession.getDeviceId());
                 position.set(Position.KEY_RESULT, "true");
