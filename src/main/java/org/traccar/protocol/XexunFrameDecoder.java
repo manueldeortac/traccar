@@ -36,6 +36,7 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
             buf.getBytes(buf.readerIndex(), bytes);
             str = new String(bytes, 0, buf.readableBytes());
         }
+        System.out.println("###########################");
         System.out.println("Frame: " + str);
 
         if(BufferUtil.indexOf("powercar ok!", buf) > -1){
