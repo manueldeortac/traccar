@@ -28,7 +28,7 @@ public class XexunProtocolEncoder extends StringProtocolEncoder {
     @Override
     protected Object encodeCommand(Command command) {
 
-        initDevicePassword(command, "123456");
+        initDevicePassword(command, "734255");
 
         switch (command.getType()) {
             case Command.TYPE_ENGINE_STOP:
