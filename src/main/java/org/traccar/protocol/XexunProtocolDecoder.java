@@ -97,6 +97,7 @@ public class XexunProtocolDecoder extends BaseProtocolDecoder {
     @Override
     protected Object decode(
             Channel channel, SocketAddress remoteAddress, Object msg) throws Exception {
+        System.out.println("Message: " + ((String) msg));
 
         Pattern pattern = PATTERN_BASIC;
         if (full) {
@@ -120,7 +121,6 @@ public class XexunProtocolDecoder extends BaseProtocolDecoder {
             return null;
         }
 
-        System.out.println("matches: " + ((String) msg));
 
         if (full) {
             position.set("serial", parser.next());
