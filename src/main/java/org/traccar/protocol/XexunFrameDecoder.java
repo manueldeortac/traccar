@@ -40,18 +40,18 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         if (beginIndex == -1) {
             beginIndex = BufferUtil.indexOf("GNRMC", buf);
             if (beginIndex == -1) {
-                return null;
+                return buf;
             }
         }
 
         int identifierIndex = BufferUtil.indexOf("imei:", buf, beginIndex, buf.writerIndex());
         if (identifierIndex == -1) {
-            return null;
+            return buf;
         }
 
         int endIndex = buf.indexOf(identifierIndex, buf.writerIndex(), (byte) ',');
         if (endIndex == -1) {
-            return null;
+            return buf;
         }
 
         buf.skipBytes(beginIndex - buf.readerIndex());
