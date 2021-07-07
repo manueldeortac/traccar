@@ -33,7 +33,7 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         }
 
         if (buf.readableBytes() < 80) {
-            return null;
+            return buf;
         }
 
         int beginIndex = BufferUtil.indexOf("GPRMC", buf);
