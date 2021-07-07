@@ -120,6 +120,8 @@ public class XexunProtocolDecoder extends BaseProtocolDecoder {
             return null;
         }
 
+        System.out.println("matches: " + ((String) msg));
+
         if (full) {
             position.set("serial", parser.next());
             position.set("number", parser.next());
