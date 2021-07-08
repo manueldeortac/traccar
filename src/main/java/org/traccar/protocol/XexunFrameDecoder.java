@@ -41,9 +41,7 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         int beginIndex, endIndex;
         if(BufferUtil.indexOf("powercar", buf) > -1){
             System.out.println(" > RESPONSE COMMAND");
-            beginIndex = BufferUtil.indexOf("powercar", buf);
-            buf.skipBytes(beginIndex - buf.readerIndex());
-            return buf.readRetainedSlice(buf.writerIndex() - beginIndex + 1);
+            return buf;
         }
         if (buf.readableBytes() < 80) {
             System.out.println(" >1");

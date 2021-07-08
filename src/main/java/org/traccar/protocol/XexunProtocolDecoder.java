@@ -104,19 +104,19 @@ public class XexunProtocolDecoder extends BaseProtocolDecoder {
             pattern = PATTERN_FULL;
         }
         DeviceSession deviceSession;
+
         Position position = new Position(getProtocolName());
 
+        if(((String) msg).contains("powercar ok!")){
+            System.out.println("Command result");
+            deviceSession = getDeviceSession(channel, remoteAddress);
+            position.setDeviceId(deviceSession.getDeviceId());
+            position.set(Position.KEY_RESULT, "true");
+            getLastLocation(position, null);
+            return position;
+        }
         Parser parser = new Parser(pattern, (String) msg);
         if (!parser.matches()) {
-            System.out.println("No matches: " + ((String) msg));
-            if(((String) msg).contains("powercar ok!")){
-                System.out.println("Command result");
-                deviceSession = getDeviceSession(channel, remoteAddress);
-                position.setDeviceId(deviceSession.getDeviceId());
-                position.set(Position.KEY_RESULT, "true");
-                getLastLocation(position, null);
-                return position;
-            }
 
             return null;
         }
