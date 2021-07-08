@@ -39,30 +39,26 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         System.out.println("###########################");
         System.out.println("Frame: " + str);
 
-        if(BufferUtil.indexOf("powercar ok!", buf) > -1){
-            return buf;
-        }
-
         if (buf.readableBytes() < 80) {
-            return buf;
+            return null;
         }
 
         int beginIndex = BufferUtil.indexOf("GPRMC", buf);
         if (beginIndex == -1) {
             beginIndex = BufferUtil.indexOf("GNRMC", buf);
             if (beginIndex == -1) {
-                return buf;
+                return null;
             }
         }
 
         int identifierIndex = BufferUtil.indexOf("imei:", buf, beginIndex, buf.writerIndex());
         if (identifierIndex == -1) {
-            return buf;
+            return null;
         }
 
         int endIndex = buf.indexOf(identifierIndex, buf.writerIndex(), (byte) ',');
         if (endIndex == -1) {
-            return buf;
+            return null;
         }
 
         buf.skipBytes(beginIndex - buf.readerIndex());
