@@ -38,16 +38,19 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         }
         System.out.println("###########################");
         System.out.println("Frame: " + str);
-
-        if(str.contains("powercar")){
+        int beginIndex, endIndex;
+        if(BufferUtil.indexOf("powercar", buf) > -1){
             System.out.println(" > RESPONSE COMMAND");
+            beginIndex = BufferUtil.indexOf("powercar", buf);
+            buf.skipBytes(beginIndex - buf.readerIndex());
+            return buf.readRetainedSlice(buf.writerIndex() - beginIndex + 1);
         }
         if (buf.readableBytes() < 80) {
             System.out.println(" >1");
             return null;
         }
 
-        int beginIndex = BufferUtil.indexOf("GPRMC", buf);
+        beginIndex = BufferUtil.indexOf("GPRMC", buf);
         if (beginIndex == -1) {
             beginIndex = BufferUtil.indexOf("GNRMC", buf);
             if (beginIndex == -1) {
@@ -62,7 +65,7 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
             return null;
         }
 
-        int endIndex = buf.indexOf(identifierIndex, buf.writerIndex(), (byte) ',');
+        endIndex = buf.indexOf(identifierIndex, buf.writerIndex(), (byte) ',');
         if (endIndex == -1) {
             System.out.println(" >4");
             return null;
