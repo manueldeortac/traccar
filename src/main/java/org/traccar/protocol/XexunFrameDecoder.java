@@ -28,23 +28,12 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
     protected Object decode(
             ChannelHandlerContext ctx, Channel channel, ByteBuf buf) throws Exception {
 
-        String str;
-        if(buf.hasArray()) { // handle heap buffer
-            str = new String(buf.array(), buf.arrayOffset() + buf.readerIndex(), buf.readableBytes());
-        } else { // handle direct buffers and composite buffers
-            byte[] bytes = new byte[buf.readableBytes()];
-            buf.getBytes(buf.readerIndex(), bytes);
-            str = new String(bytes, 0, buf.readableBytes());
-        }
-        System.out.println("###########################");
-        System.out.println("Frame: " + str);
+
         int beginIndex, endIndex;
         if(BufferUtil.indexOf("powercar", buf) > -1){
-            System.out.println(" > RESPONSE COMMAND");
             return buf;
         }
         if (buf.readableBytes() < 80) {
-            System.out.println(" >1");
             return null;
         }
 
@@ -52,23 +41,19 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         if (beginIndex == -1) {
             beginIndex = BufferUtil.indexOf("GNRMC", buf);
             if (beginIndex == -1) {
-                System.out.println(" >2");
                 return null;
             }
         }
 
         int identifierIndex = BufferUtil.indexOf("imei:", buf, beginIndex, buf.writerIndex());
         if (identifierIndex == -1) {
-            System.out.println(" >3");
             return null;
         }
 
         endIndex = buf.indexOf(identifierIndex, buf.writerIndex(), (byte) ',');
         if (endIndex == -1) {
-            System.out.println(" >4");
             return null;
         }
-        System.out.println(" >5");
         buf.skipBytes(beginIndex - buf.readerIndex());
 
         return buf.readRetainedSlice(endIndex - beginIndex + 1);

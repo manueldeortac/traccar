@@ -97,7 +97,6 @@ public class XexunProtocolDecoder extends BaseProtocolDecoder {
     @Override
     protected Object decode(
             Channel channel, SocketAddress remoteAddress, Object msg) throws Exception {
-        System.out.println("Message: " + ((String) msg));
 
         Pattern pattern = PATTERN_BASIC;
         if (full) {
@@ -108,7 +107,6 @@ public class XexunProtocolDecoder extends BaseProtocolDecoder {
         Position position = new Position(getProtocolName());
 
         if(((String) msg).contains("powercar ok!")){
-            System.out.println("Command result");
             deviceSession = getDeviceSession(channel, remoteAddress);
             position.setDeviceId(deviceSession.getDeviceId());
             position.set(Position.KEY_RESULT, "true");
