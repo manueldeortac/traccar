@@ -40,6 +40,7 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         System.out.println("Frame: " + str);
 
         if (buf.readableBytes() < 80) {
+            System.out.println(" >1");
             return null;
         }
 
@@ -47,20 +48,23 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         if (beginIndex == -1) {
             beginIndex = BufferUtil.indexOf("GNRMC", buf);
             if (beginIndex == -1) {
+                System.out.println(" >2");
                 return null;
             }
         }
 
         int identifierIndex = BufferUtil.indexOf("imei:", buf, beginIndex, buf.writerIndex());
         if (identifierIndex == -1) {
+            System.out.println(" >3");
             return null;
         }
 
         int endIndex = buf.indexOf(identifierIndex, buf.writerIndex(), (byte) ',');
         if (endIndex == -1) {
+            System.out.println(" >4");
             return null;
         }
-
+        System.out.println(" >5");
         buf.skipBytes(beginIndex - buf.readerIndex());
 
         return buf.readRetainedSlice(endIndex - beginIndex + 1);
