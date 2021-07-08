@@ -39,6 +39,9 @@ public class XexunFrameDecoder extends BaseFrameDecoder {
         System.out.println("###########################");
         System.out.println("Frame: " + str);
 
+        if(str.contains("powercar")){
+            System.out.println(" > RESPONSE COMMAND");
+        }
         if (buf.readableBytes() < 80) {
             System.out.println(" >1");
             return null;
