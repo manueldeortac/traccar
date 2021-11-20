@@ -448,7 +448,7 @@ public class MeiligaoProtocolDecoder extends BaseProtocolDecoder {
 
             position.setDeviceId(deviceSession.getDeviceId());
 
-            if (command == MSG_OUTPUT_CONTROL) {
+            if (command == MSG_OUTPUT_CONTROL  || command == MSG_OUTPUT_CONTROL_1) {
                 position.set(Position.KEY_RESULT, "true");
                 getLastLocation(position, null);
                 return position;
